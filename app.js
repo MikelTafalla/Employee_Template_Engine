@@ -75,12 +75,24 @@ async function init() {
     const officeNumber = await inquirer.prompt(managerQuestions);
 
     const employee = new Manager(name, id, email, officeNumber);
-
-    console.log(employee);
     // push the manager constructor object into employeesArr
     employeeArr.push(employee);
-  }
-    //If user wants to add another team member, we send the answer to the answerArr array and ask the questions again. If finished, we send the answer to the array and stop the function.
+    
+  } else if (role === "Engineer") {
+    const github = await inquirer.prompt(engineerQuestions);
+
+    const employee = new Engineer(name, id, email, github);
+    // push the engineer constructor object into employeesArr
+    employeeArr.push(employee);
+
+  } else if (role === "Intern") {
+    const school = await inquirer.prompt(internQuestions);
+
+    const employee = new Intern(name, id, email, school);
+    // push the intern constructor object into employeesArr
+    employeeArr.push(employee);
+  };
+
     // Ask them if they want to add another employee
   if (restart === "yes") {
       init();
