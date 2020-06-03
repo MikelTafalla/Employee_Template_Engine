@@ -54,7 +54,7 @@ const internQuestions = {
   name: "school"
 };
 //Add more employees
-const restart = {
+const restartQuestion = {
   type: "list",
   message: "Would you like to add another team member?",
   choices: ["yes", "no"],
@@ -63,6 +63,7 @@ const restart = {
 
 //Array to hold the answers
 const employeeArr = [];
+
 //Function to start inquirer
 async function init() {
 
@@ -94,10 +95,12 @@ async function init() {
   };
 
     // Ask them if they want to add another employee
+  const restartAnswer = await inquirer.prompt(restartQuestion);
+  const {restart} = restartAnswer;
   if (restart === "yes") {
       init();
   } else {
-      return;
+      return console.log(employeeArr);;
   };
 
 };
