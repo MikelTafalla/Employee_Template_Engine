@@ -41,7 +41,7 @@ const questions = [
 const managerQuestions = {
   type: "input",
   message: "What is your manager's office number?",
-  name: "officenumber"
+  name: "number"
 };
 const engineerQuestions = {
   type: "input",
@@ -75,8 +75,9 @@ async function init() {
   // If role is manager, ask for office number. With that response back, then create a new manager with userResponse and officeNumber response like: const employee = new Manager(name, id, email, officeNumber);
   if (role === "Manager") {
     const officeNumber = await inquirer.prompt(managerQuestions);
-
-    const employee = new Manager(name, id, email, officeNumber);
+    //Deconstructing nested object
+    const officenumber = officeNumber.number;
+    const employee = new Manager(name, id, email, officenumber);
     // push the manager constructor object into employeesArr
     employeesArr.push(employee);
     
@@ -101,6 +102,7 @@ async function init() {
   if (restart === "yes") {
       init();
   } else {
+    console.log(employeesArr)
     const teamfile = render(employeesArr);
     fs.writeFile(outputPath, teamfile, function(err){
       if(err){
