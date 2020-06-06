@@ -62,7 +62,8 @@ const restartQuestion = {
 };
 
 //Array to hold the answers
-const employeeArr = [];
+const employeesArr = [];
+
 
 //Function to start inquirer
 async function init() {
@@ -77,21 +78,21 @@ async function init() {
 
     const employee = new Manager(name, id, email, officeNumber);
     // push the manager constructor object into employeesArr
-    employeeArr.push(employee);
+    employeesArr.push(employee);
     
   } else if (role === "Engineer") {
     const github = await inquirer.prompt(engineerQuestions);
 
     const employee = new Engineer(name, id, email, github);
     // push the engineer constructor object into employeesArr
-    employeeArr.push(employee);
+    employeesArr.push(employee);
 
   } else if (role === "Intern") {
     const school = await inquirer.prompt(internQuestions);
 
     const employee = new Intern(name, id, email, school);
     // push the intern constructor object into employeesArr
-    employeeArr.push(employee);
+    employeesArr.push(employee);
   };
 
     // Ask them if they want to add another employee
@@ -100,14 +101,21 @@ async function init() {
   if (restart === "yes") {
       init();
   } else {
-      return console.log(employeeArr);;
+    const teamfile = render(employeesArr);
+    fs.writeFile(outputPath, teamfile, function(err){
+      if(err){
+        throw err;
+      }
+    });
   };
-
+  
 };
+
 init();
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
+
 
 
 
