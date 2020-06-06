@@ -82,16 +82,17 @@ async function init() {
     employeesArr.push(employee);
     
   } else if (role === "Engineer") {
-    const github = await inquirer.prompt(engineerQuestions);
+    const gitHub = await inquirer.prompt(engineerQuestions);
+    const gitUser = gitHub.github
 
-    const employee = new Engineer(name, id, email, github);
+    const employee = new Engineer(name, id, email, gitUser);
     // push the engineer constructor object into employeesArr
     employeesArr.push(employee);
 
   } else if (role === "Intern") {
-    const school = await inquirer.prompt(internQuestions);
-
-    const employee = new Intern(name, id, email, school);
+    const schoolObj = await inquirer.prompt(internQuestions);
+    const schoolIntern = schoolObj.school
+    const employee = new Intern(name, id, email, schoolIntern);
     // push the intern constructor object into employeesArr
     employeesArr.push(employee);
   };
