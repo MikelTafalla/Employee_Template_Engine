@@ -46,12 +46,12 @@ const managerQuestions = {
 const engineerQuestions = {
   type: "input",
   message: "What is your engineer's github user name?",
-  name: "github"
+  name: "gitUser"
 };
 const internQuestions = {
   type: "input",
   message: "What is your intern's school?",
-  name: "school"
+  name: "schoolIntern"
 };
 //Add more employees
 const restartQuestion = {
@@ -74,32 +74,32 @@ async function init() {
 
   // If role is manager, ask for office number. With that response back, then create a new manager with userResponse and officeNumber response like: const employee = new Manager(name, id, email, officeNumber);
   if (role === "Manager") {
-    const officeNumber = await inquirer.prompt(managerQuestions);
+    const officenumber = await inquirer.prompt(managerQuestions);
     //Deconstructing nested object
-    const officenumber = officeNumber.number;
-    const employee = new Manager(name, id, email, officenumber);
+    const officeNumber = officenumber.number;
+    const employee = new Manager(name, id, email, officeNumber);
     // push the manager constructor object into employeesArr
     employeesArr.push(employee);
     
   } else if (role === "Engineer") {
     const gitHub = await inquirer.prompt(engineerQuestions);
-    const gitUser = gitHub.github
+    const github = gitHub.gitUser
 
-    const employee = new Engineer(name, id, email, gitUser);
+    const employee = new Engineer(name, id, email, github);
     // push the engineer constructor object into employeesArr
     employeesArr.push(employee);
 
   } else if (role === "Intern") {
     const schoolObj = await inquirer.prompt(internQuestions);
-    const schoolIntern = schoolObj.school
-    const employee = new Intern(name, id, email, schoolIntern);
+    const school = schoolObj.schoolIntern
+    const employee = new Intern(name, id, email, school);
     // push the intern constructor object into employeesArr
     employeesArr.push(employee);
   };
 
     // Ask them if they want to add another employee
-  const restartAnswer = await inquirer.prompt(restartQuestion);
-  const {restart} = restartAnswer;
+  const restartInquirer = await inquirer.prompt(restartQuestion);
+  const {restart} = restartInquirer;
   if (restart === "yes") {
       init();
   } else {
@@ -115,27 +115,3 @@ async function init() {
 };
 
 init();
-// After the user has input all employees desired, call the `render` function (required
-// above) and pass in an array containing all employee objects; the `render` function will
-// generate and return a block of HTML including templated divs for each employee!
-
-
-
-
-// After you have your html, you're now ready to create an HTML file using the HTML
-// returned from the `render` function. Now write it to a file named `team.html` in the
-// `output` folder. You can use the variable `outputPath` above target this location.
-// Hint: you may need to check if the `output` folder exists and create it if it
-// does not.
-
-// HINT: each employee type (manager, engineer, or intern) has slightly different
-// information; write your code to ask different questions via inquirer depending on
-// employee type.
-
-// HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
-// and Intern classes should all extend from a class named Employee; see the directions
-// for further information. Be sure to test out each class and verify it generates an
-// object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work! ```
-
-
