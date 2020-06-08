@@ -104,7 +104,9 @@ async function init() {
       init();
   } else {
     console.log(employeesArr)
+    //After adding employees, call render function and pass into it the employeesArr. The HTML generated in HTMLrender will be store in the const teamfile
     const teamfile = render(employeesArr);
+    //write the team.html and store it in the output path via outputPath. Write the content from the HTML stored in teamfile
     fs.writeFile(outputPath, teamfile, function(err){
       if(err){
         throw err;
